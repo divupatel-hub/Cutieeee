@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Interactive Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://example.com/valentine-background.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                top: -20px;
+                left: calc(100% * var(--x));
+            }
+            100% {
+                top: 100%;
+            }
+        }
+        #proposal {
+            margin: 20px;
+            display: none;
+        }
+        #game {
+            margin: 20px;
+        }
+        #love-counter {
+            font-size: 24px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Happy Valentine's Day!</h1>
+    <div id="love-messages">
+        <p>Love is in the air!</p>
+    </div>
+    <div id="proposal">
+        <h2>Will you marry me?</h2>
+        <button onclick="showRing()">Open Ring Box</button>
+        <div id="ring-box" style="display:none;">💍</div>
+    </div>
+    <div id="game">
+        <h2>Catch the Hearts Game!</h2>
+        <button onclick="startGame()">Start Game</button>
+        <div id="score">Score: 0</div>
+    </div>
+    <div id="love-counter">
+        <p>Total Love Count: <span id="count">0</span></p>
+    </div>
+    <audio controls autoplay loop>
+        <source src="https://example.com/love-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function showRing() {
+            document.getElementById('ring-box').style.display = 'block';
+        }
+
+        function startGame() {
+            let score = 0;
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.setProperty('--x', Math.random());
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', function() {
+                score++;
+                document.getElementById('score').innerText = 'Score: ' + score;
+                heart.remove();
+                startGame();
+            });
+        }
+
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.setProperty('--x', Math.random());
+            document.body.appendChild(heart);
+        }
+    </script>
+
+</body>
+</html>
